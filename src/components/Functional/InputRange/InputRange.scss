@@ -1,0 +1,40 @@
+.input {
+  width: 100%;
+  position: relative;
+  margin-bottom: 64px;
+}
+output {
+  position: absolute;
+  padding: 5px 7px 5px 0;
+  left: 0;
+  top: -25px;
+  color: white;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+#range {
+  position: relative;
+  width: 100%;
+  height: 2px;
+  background: rgba(0, 240, 255, 1);
+  -webkit-appearance: none;
+  appearance: none;
+  outline: none;
+}
+#range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: rgba(248, 239, 0, 1);
+  height: 21px;
+  width: 21px;
+}
+#range::-moz-range-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: rgba(248, 239, 0, 1);
+  height: 21px;
+  width: 21px;
+  border: none;
+  border-radius: 0px;
+}
