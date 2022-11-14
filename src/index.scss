@@ -21,10 +21,11 @@ code {
 }
 .app {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(600px, 1fr));
   grid-template-rows: repeat(2, min-content);
-  column-gap: 140px;
+  column-gap: 120px;
   row-gap: 60px;
+  margin-right: 150px;
 }
 .history {
   grid-row: 2/3;
@@ -39,4 +40,12 @@ code {
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: #f8ef00;
+}
+@media (max-width: 1000px) {
+  .app {
+    grid-template-columns: 1fr;
+  }
+  .history {
+    grid-row: 3/4;
+  }
 }
