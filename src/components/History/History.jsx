@@ -1,19 +1,38 @@
 import React from "react";
-
-function History() {
+import "./History.scss";
+function History(props) {
+  if (props.history.length > 5) {
+    props.history.shift();
+  }
   return (
     <div className="history">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt
-      provident distinctio sed libero illo eveniet officia delectus culpa
-      consequatur, quo ea quidem dolorem nisi temporibus modi cumque reiciendis
-      itaque fuga a perferendis! Qui corporis reiciendis debitis repudiandae
-      quidem facere, magni aperiam fugit similique veniam quos. Quas, at! Dolore
-      expedita harum eligendi tempora consequatur, repudiandae at soluta hic
-      placeat rerum deleniti natus sapiente explicabo ullam totam! Laudantium
-      numquam quibusdam est sunt blanditiis iste dolore, asperiores consequatur
-      suscipit tenetur beatae voluptate debitis doloribus consectetur quisquam
-      vel corrupti laboriosam quas. Officia voluptatem amet debitis et, itaque
-      eum maxime cupiditate nulla tempore magni rem.
+      <h2 className="history__title">password History</h2>
+      <button
+        className="history__button"
+        onClick={() => {
+          localStorage.setItem("history", JSON.stringify([]));
+          props.setHistory(JSON.parse(localStorage.getItem("history")));
+        }}
+      >
+        Clear history
+      </button>
+      <div className="history__list">
+        {props.history.map((historyItem, index) => {
+          // eslint-disable-next-line array-callback-return
+          if (historyItem === "Select length and security") return;
+          console.log("fisting");
+          return (
+            <div key={index} className="history__div">
+              <p className="history__item">{historyItem}</p>
+              <img
+                src={require("./Icon.png")}
+                alt=""
+                className="history__icon"
+              />
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }

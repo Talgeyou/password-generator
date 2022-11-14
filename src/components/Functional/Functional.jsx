@@ -15,6 +15,7 @@ function Functional(props) {
         alertRef.current.classList.remove("show");
       }, 1000);
     });
+    props.writeHistory();
   }
   return (
     <div className="functional">
