@@ -1,21 +1,26 @@
 import React, { useState, useEffect } from "react";
 import "./Checkboxes.scss";
 function Checkboxes(props) {
+  //Юзстейты для управляемых чекбоксов(можно было обойтись одним объектом checkboxes), но его добавил позже и было лень переписывать
   const [uppercase, setUppercase] = useState(false);
   const [lowercase, setLowercase] = useState(false);
   const [numbers, setNumbers] = useState(false);
   const [symbols, setSymbols] = useState(false);
+
   const [checkboxes, setCheckboxes] = useState({
     uppercase: false,
     lowercase: false,
     numbers: false,
     symbols: false,
-  });
+  }); //Объект который изменяется в этом компоненте и передается в App для генерации пароля
 
+  //Юзеффект который срабатывает при изменении чекбоксов, вызывает функцию генерации пароля
   useEffect(() => {
     props.generatePassword(checkboxes);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [checkboxes]);
+
+  //Юзеффект который срабатывает при изменении длинны пароля
   useEffect(() => {
     props.generatePassword(checkboxes);
     // eslint-disable-next-line react-hooks/exhaustive-deps
