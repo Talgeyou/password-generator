@@ -34,7 +34,9 @@ function Functional({
         Copied!
       </h4>
       <div className="functional__clipboard">
-        <p className="functional__password">{password}</p>
+        <p className="functional__password">
+          {password || "Select length and security"}
+        </p>
       </div>
       <Button copy={copy} />
       <InputRange setLength={setLength} />
