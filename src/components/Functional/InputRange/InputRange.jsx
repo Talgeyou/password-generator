@@ -1,22 +1,15 @@
 import React, { useState, useEffect } from "react";
 import "./InputRange.scss";
-function InputRange(props) {
-  //Стейт для управляемого инпута
+function InputRange({ setLength }) {
   const [rangeValue, setRangeValue] = useState(5);
 
-  //Деструктуризация пропсов
-  const { setLength } = props;
-
-  //Изменения стейта инпута
   const outputUpdate = (event) => {
     setRangeValue(event.target.value);
   };
 
-  //При обновлении стейта инпута вызывается функция обновления стейта длины пароля в Арр-е
   useEffect(() => {
     setLength(rangeValue);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rangeValue]);
+  }, [rangeValue, setLength]);
 
   return (
     <div className="input">

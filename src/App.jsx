@@ -1,61 +1,32 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Title from "./components/Title";
 import Functional from "./components/Functional/Functional";
 import History from "./components/History/History";
+import { generatePassword } from "./helpers";
+import { DEFAULT_LENGTH } from "./constants";
+
 function App() {
-  //Сам пароль
-  const [password, setPassword] = useState("Select length and security");
-  //Длина пароля(по умолчанию 5)
-  const [length, setLength] = useState(5);
-  //Массив истории
+  const [password, setPassword] = useState("");
+  const [length, setLength] = useState(DEFAULT_LENGTH);
   const [history, setHistory] = useState([]);
-  //Строки символов для генерации пароля
-  const lower = "qwertyuiopasdfghjklzxcvbnm";
-  const upper = "QWERTYUIOPASDFGHJKLZXCVBNM";
-  const num = "0123456789";
-  const symb = "!@#$%^&*?/";
 
-  //Функция генерации пароля
-  function generatePassword({ uppercase, lowercase, numbers, symbols }) {
-    if (!uppercase && !lowercase && !numbers && !symbols) {
-      setPassword("Select length and security");
-    } else {
-      let passwordString = "";
-      if (uppercase) {
-        passwordString += upper;
-      }
-      if (lowercase) {
-        passwordString += lower;
-      }
-      if (numbers) {
-        passwordString += num;
-      }
-      if (symbols) {
-        passwordString += symb;
-      }
-      let passwordForState = "";
-      for (let i = 0; i < length; i++) {
-        let randomNumber = Math.floor(Math.random() * passwordString.length);
-        passwordForState += passwordString.substring(
-          randomNumber,
-          randomNumber + 1
-        );
-      }
-      setPassword(passwordForState);
-    }
-  }
+  const changePassword = useCallback(
+    ({ uppercase, lowercase, numbers, symbols }) => {
+      setPassword(
+        generatePassword(length, { uppercase, lowercase, numbers, symbols })
+      );
+    },
+    [length]
+  );
 
-  //При монтировании App данные из локального хранилища записываются в массив истории
   useEffect(() => {
-    setHistory(JSON.parse(localStorage.getItem("history")));
+    setHistory(JSON.parse(localStorage.getItem("history")) || []);
   }, []);
 
-  //Функция добавления нового пароля в историю
-  function writeHistory() {
-    setHistory([...history, password]);
-  }
+  const writeHistory = useCallback(() => {
+    setHistory((prev) => [...prev, password]);
+  }, [password]);
 
-  //При обновлении истории запись в локальное хранилище
   useEffect(() => {
     localStorage.setItem("history", JSON.stringify(history));
   }, [history]);
@@ -64,7 +35,7 @@ function App() {
     <div className="app">
       <Title />
       <Functional
-        generatePassword={generatePassword}
+        changePassword={changePassword}
         password={password}
         setLength={setLength}
         length={length}

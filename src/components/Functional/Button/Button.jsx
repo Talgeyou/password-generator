@@ -2,7 +2,7 @@ import React from "react";
 
 function Button(props) {
   return (
-    <div className="functional__button" onClick={props.write}>
+    <div className="functional__button" onClick={props.copy}>
       <p>Copy password_</p>
       <img src={require("./Icon.png")} alt="icon" />
       <div className="functional__rectangle">
